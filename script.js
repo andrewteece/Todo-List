@@ -2,6 +2,14 @@ const form = document.getElementById('form')
 const input = document.getElementById('input')
 const todosUL = document.getElementById('todos')
 
+const todos = JSON.parse(localStorage.getItem('todos'))
+
+// check local storage
+if (todos) {
+    todos.forEach(todo => addTodo(todo))
+}
+
+
 form.addEventListener('submit', (e) => {
     e.preventDefault()
 
@@ -24,17 +32,39 @@ function addTodo(todo) {
         todoEl.innerText = todoText
 
         // left click
-        todoEl.addEventListener('click', () => todoEl.classList.toggle('completed'))
+        todoEl.addEventListener('click', () => {
+            todoEl.classList.toggle('completed')
+            updateLS()
+        })
 
         // right click
         todoEl.addEventListener('contextmenu', (e) => {
             e.preventDefault()
 
             todoEl.remove()
+            updateLS()
         })
 
         todosUL.appendChild(todoEl)
 
         input.value = ''
+
+        updateLS()
     }
 }
+
+function updateLS() {
+    todoEl = document.querySelectorAll('li')
+
+    const todos = []
+
+    todoEl.forEach(todoEl => {
+        todos.push({
+            text: todoEl.innerText,
+            completed: todoEl.classList.contains('completed')
+        })
+    })
+
+    localStorage.setItem('todos', JSON.stringify(todos))
+}
+
