@@ -30,7 +30,7 @@ form {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.todo__input {
+.input {
   display: block;
   width: 100%;
   padding: 1rem 2rem;
@@ -39,7 +39,7 @@ form {
   border: none;
 }
 
-.todo__input::placeholder {
+.input::placeholder {
   color: rgb(186, 183, 183);
 }
 
